@@ -1,0 +1,32 @@
+<ion-modal-view class="product-image">
+  <ion-header-bar class="bar-dark">
+    <button class="button button-icon" ng-click="closeImage()">
+      <i class="icon ion-android-close"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content style="margin: 10px">
+
+    <div class="col">
+      <h4 class="align-center">Título de la Imagen</h4>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <img class="col-image center" src="{{product.logo}}" alt="" />
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row ov-images-container">
+      <div class="col">
+        <img class="col-image pointer" src="{{product.logo}}" alt="" />
+        <img class="col-image pointer" src="{{product.logo}}" alt="" />
+        <img class="col-image pointer" src="{{product.logo}}" alt="" />
+        <img class="col-image pointer" src="{{product.logo}}" alt="" />
+      </div>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

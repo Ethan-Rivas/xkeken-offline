@@ -1,0 +1,32 @@
+<ion-modal-view class="product-detail">
+  <ion-header-bar class="bar bar-header bar-green">
+    <button class="button button-icon" ng-click="closeReservationDetail()">
+      <i class="text-white icon ion-android-close"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <h4 class="title"> Información de la Reservación </h4>
+
+    <div class="reservation-box">
+      <span class="bold">Folio:</span> <span ng-bind="sale.tour_reservation.folio"></span></br>
+      <span class="bold">Actividad:</span> <span ng-bind="sale.tour_reservation.activity"></span></br>
+      <span class="bold">Promotor:</span> <span ng-bind="sale.tour_reservation.promoter"></span></br>
+      <span class="bold">Fecha de Reservación:</span> {{sale.tour_reservation.created_at | date:'yyyy-MM-dd'}}</br>
+      <span class="bold"># de Personas:</span> <span>{{sale.tour_reservation.adults + sale.tour_reservation.kids + sale.tour_reservation.infants}}</span>
+      <span class="bold">Adultos:</span> <span ng-bind="sale.tour_reservation.adults"></span></br>
+      <span class="bold">Niños:</span> <span ng-bind="sale.tour_reservation.kids"></span></br>
+      <span class="bold">Infantes:</span> <span ng-bind="sale.tour_reservation.infants"></span></br>
+      <span class="bold">Cliente:</span> <span ng-bind="sale.tour_reservation.client"></span></br>
+      <span class="bold">E-mail:</span> <span ng-bind="sale.tour_reservation.email"></span></br>
+      <span class="bold">Hotel:</span> <span ng-bind="sale.tour_reservation.hotel"></span></br>
+      <span class="bold">Habitación:</span> <span ng-bind="sale.tour_reservation.room"></span></br>
+      <span class="bold">Fecha:</span> {{sale.tour_reservation.date | date:'yyyy-MM-dd'}}</br>
+      <span class="bold">Hora:</span> {{sale.tour_reservation.hour | date: "h:mma"}}</br>
+      <span class="bold">Tipo de Cambio:</span> <span ng-bind="sale.tour_reservation.currency"></span></br>
+      <span class="bold">Deposito:</span> <span ng-bind="sale.tour_reservation.deposit"></span></br>
+    </div>
+
+    <button class="print-button" ng-click="printReceipt(sale)">Imprimir</button>
+  </ion-content>
+</ion-modal-view>

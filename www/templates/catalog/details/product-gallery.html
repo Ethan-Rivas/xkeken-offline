@@ -1,0 +1,24 @@
+<ion-modal-view class="product-gallery">
+  <ion-header-bar class="bar-dark">
+    <button class="button button-icon" ng-click="closeGallery()">
+      <i class="icon ion-android-close"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content style="margin: 10px">
+
+    <div class="col">
+      <h4>Galería de Imagenes</h4>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <img class="col-image pointer" src="{{product.logo}}" alt="" ng-click="showImage()"/>
+        <img class="col-image pointer" src="{{product.logo}}" alt="" ng-click="showImage()"/>
+        <img class="col-image pointer" src="{{product.logo}}" alt="" ng-click="showImage()"/>
+        <img class="col-image pointer" src="{{product.logo}}" alt="" ng-click="showImage()"/>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

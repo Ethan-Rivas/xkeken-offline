@@ -1,0 +1,51 @@
+<ion-modal-view class="product-detail">
+  <ion-header-bar class="bar bar-header bar-green">
+    <button class="button button-icon" ng-click="closeProduct()">
+      <i class="text-white icon ion-android-close"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="item item-divider">
+      <i class="ion-images"></i>
+      Imagenes del Tour
+    </div>
+
+    <a class="item item-list-detail">
+      <ion-scroll direction="x">
+        <img ng-repeat="image in product.pictures" ng-src="{{image.image_url}}" ng-click="openImage(product.pictures)" class="image-list-thumb"/>
+      </ion-scroll>
+    </a>
+
+    <h4 class="title"> Información del Tour </h4>
+
+    <div class="tour-description-box">
+      <div class="title tour-details">
+        <p><span class="tour-detail">Nombre del Tour: </span>{{product.name}}</p>
+        <p><span class="tour-detail">Descripción: </span>{{product.description}}</p>
+        <div class="">
+          <span class="tour-detail">Horarios:</span>
+          {{product.products[0].product_availabilities[0].start_time}} -
+          {{product.products[0].product_availabilities[0].end_time}}
+          <div class="">
+            <span class="tour-detail">Días disponibles:</span>
+              <ul ng-repeat="(key, value) in product.products[0].product_availabilities[0]">
+                <li ng-if="key == 'monday' && value == true">Lunes/Monday</li>
+                <li ng-if="key == 'tuesday' && value == true">Martes/Tuesday</li>
+                <li ng-if="key == 'wensday' && value == true">Miércoles/Wensday</li>
+                <li ng-if="key == 'thursday' && value == true">Jueves/Thursday</li>
+                <li ng-if="key == 'friday' && value == true">Viernes/Friday</li>
+                <li ng-if="key == 'saturday' && value == true">Sábado/Saturday</li>
+                <li ng-if="key == 'sunday' && value == true">Domingo/Sunday</li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="big-green-btn" ng-click="startReservation(product)">
+      <div class="reservation-footer-btn">
+        <h4 class="footer-text-center">RESERVAR TOUR</h4>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

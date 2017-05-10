@@ -1,0 +1,45 @@
+<ion-header-bar class="bar-stable">
+  <h1 class="title">Compra</h1>
+</ion-header-bar>
+<ion-content class="padding has-header" ng-init="getReservations()">
+  <ion-list>
+    <ion-item ng-repeat="item in cart_reservation">
+      <div class="row" ng-init="totalCart(cart_reservation)">
+        <div class="col-50">
+          Actividad: {{item.tour_reservation.activity}}</br>
+          Cliente: {{item.tour_reservation.client}}</br>
+          E-mail: {{item.tour_reservation.email}}</br>
+          Personas: {{item.tour_reservation.adults + item.tour_reservation.kids + item.tour_reservation.infants}}
+        </div>
+        <div class="col-50 text-center">
+          <div class="button trash-icon-container" ng-click="removeItem($index)">
+            <span class="ion-trash-b icon-white-25"></span>
+          </div>
+          <!--<div class="button edit-icon-container">
+            <span class="ion-edit icon-white-25"></span>
+          </div>-->
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <div class="row">
+        <div class="col-10"></div>
+        <div class="col-50">
+          <strong>Total</strong>
+        </div>
+        <div class="col-40">
+          <strong>{{ total_cart_value | currency : '$' }}
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <div class="row">
+        <button class="button button-block button-positive" ng-click="createAsPending(cart_reservation)">
+          Comprar
+        </button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
