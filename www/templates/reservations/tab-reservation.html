@@ -1,0 +1,37 @@
+<ion-view view-title="Reservaciones">
+  <ion-content class="has-header" ng-init="getReservations(); getPendingReservations()">
+    <div class="" ng-repeat="reservation in pending | orderBy:'-id'">
+      <div ng-click="openReservation(reservation)">
+        <div class="reservation-container">
+          <div class="reservation-details">
+            <div class="">
+              Status: <span class="pending">PENDING</span>
+            </div>
+            <span class="bold">Actividad:</span> <span ng-bind="reservation.tour_reservation.activity"></span></br>
+            <span class="bold">Promotor:</span> <span ng-bind="reservation.tour_reservation.promoter"></span></br>
+            <span class="bold"># de Personas:</span> <span>{{reservation.tour_reservation.adults + reservation.tour_reservation.kids + reservation.tour_reservation.infants}}</span></br>
+            <button type="button" name="button" ng-click="sendReservation(reservation, $index)" ng-if="isActive == true">
+              Procesar <span class="ion-paper-airplane"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="" ng-repeat="reservation in completedReservations | orderBy:'-id'">
+      <div ng-click="openReservation(reservation)">
+        <div class="reservation-container">
+          <div class="reservation-details">
+            <div class="">
+              Status: <span class="completed">COMPLETED</span>
+            </div>
+            <span class="bold">Actividad:</span> <span ng-bind="reservation.tour_reservation.activity"></span></br>
+            <span class="bold">Promotor:</span> <span ng-bind="reservation.tour_reservation.promoter"></span></br>
+            <span class="bold">Fecha de Reservación:</span> {{reservation.tour_reservation.created_at | date:'yyyy-MM-dd'}}</br>
+            <span class="bold"># de Personas:</span> <span>{{reservation.tour_reservation.adults + reservation.tour_reservation.kids + reservation.tour_reservation.infants}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

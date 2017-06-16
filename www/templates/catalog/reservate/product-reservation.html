@@ -1,0 +1,185 @@
+<ion-view class="">
+  <input ng-model="product.id" type="hidden">
+
+  <ion-content class="has-header bg-grey" ng-init="testing()">
+    <div class="top-header-reservation">
+      <div class="image-holder">
+        <img src="img/logo-res.png" alt="">
+      </div>
+      <div class="top-header-text">
+        <h3 class="text-white">VENTAS</h3>
+        <h4 class="text-white">REGISTRO DE VENTAS</h4>
+      </div>
+    </div>
+
+    <div class="padding" ng-form name="myForm">
+      <div class="">
+        <h4>Datos del Paquete</h4>
+
+        <div class="col col-100">
+          <label for="">Nombre del Tour</label>
+          <input ng-model="product.name" class="input-bg-lg" type="text">
+        </div>
+
+        <div class="col col-100">
+          <label for="">Promotor</label>
+          <select name="user_id" class="input-bg-lg" ng-options="user as user.email for user in users" ng-model="user" ng-class="{'has-error' : myForm.business_id.$invalid && (validated)}" required>
+            <option value="">Elija un promotor</option>
+          </select>
+          <p ng-show="(validated) && myForm.product_id.$error.required" class="help-block">Se requiere un promotor.</p>
+        </div>
+
+        <div class="row">
+          <div class="col col-40">
+            <label for="">Paquete</label>
+            <select name="product_id" class="input-bg-lg" ng-options="package as package.name for package in product.products" ng-model="package" ng-class="{'has-error' : myForm.package_id.$invalid && (validated)}" required>
+              <option value="">Elija un paquete</option>
+            </select>
+            <p ng-show="(validated) && myForm.product_id.$error.required" class="help-block">Se requiere un paquete.</p>
+          </div>
+
+          <div class="col col-30">
+            <label for="">Fecha de Reservación</label>
+            <input ng-class="{'has-error' : myForm.date.$invalid && (validated)}" name="date" class="date" ng-model="tour_reservation.date" type="date" required>
+            <p ng-show="(validated) && myForm.date.$error.required" class="help-block">Se requiere una fecha.</p>
+          </div>
+
+          <div class="col col-30">
+            <label for="">Hora de Reservación</label>
+            <input ng-class="{'has-error' : myForm.hour.$invalid && (validated)}" name="hour" class="hour" ng-model="tour_reservation.hour" type="time" required>
+            <p ng-show="(validated) && myForm.hour.$error.required" class="help-block">Se requiere una hora.</p>
+          </div>
+        </div>
+
+        <h4>Datos del Cliente</h4>
+
+        <div class="col col-100">
+          <label for="">Nombre del Cliente</label>
+          <input ng-class="{'has-error' : myForm.client.$invalid && (validated)}" name="client" ng-model="tour_reservation.client" class="input-bg-lg" type="text" ng-minlength="3" required>
+          <p ng-show="(validated) && myForm.client.$error.minlength" class="help-block">Nombre muy corto.</p>
+          <p ng-show="(validated) && myForm.client.$error.required" class="help-block">No puede estar vacío.</p>
+        </div>
+
+        <div class="col col-100">
+          <label for="">Correo Electrónico</label>
+          <input ng-class="{'has-error' : myForm.email.$invalid && (validated)}" name="email" ng-model="tour_reservation.email" class="input-bg-lg" type="text" required>
+          <p ng-show="(validated) && myForm.email.$error.required" class="help-block">No puede estar vacío.</p>
+        </div>
+
+        <div class="row" ng-show="business.id == 1">
+          <div class="col col-50">
+            <label for="">Hotel</label>
+            <input ng-class="{'has-error' : myForm.hotel.$invalid && (validated)}" name="hotel" ng-model="tour_reservation.hotel" class="input-bg-lg" type="text" required>
+            <p ng-show="(validated) && myForm.hotel.$error.required" class="help-block">Ingrese el hotel.</p>
+          </div>
+
+          <div class="col col-50">
+            <label for="">Habitación</label>
+            <input ng-class="{'has-error' : myForm.room.$invalid && (validated)}" name="room" ng-model="tour_reservation.room" class="input-bg-lg" type="text" required>
+            <p ng-show="(validated) && myForm.room.$error.required" class="help-block">Ingrese la habitación.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-33">
+            <label for="">N Niños
+              <label>
+                <input ng-class="{'has-error' : myForm.kids.$invalid && (validated)}" value="0" name="kids" ng-model="tour_reservation.kids" class="input-bg-lg" type="number" required>
+                <p ng-show="(validated) && myForm.kids.$error.required" class="help-block">No puede estar vacío.</p>
+          </div>
+
+          <div class="col col-34">
+            <label for="">N Adultos</label>
+            <input ng-class="{'has-error' : myForm.adults.$invalid && (validated)}" value="0" name="adults" ng-model="tour_reservation.adults" class="input-bg-lg" type="number" required>
+            <p ng-show="(validated) && myForm.kids.$error.required" class="help-block">No puede estar vacío.</p>
+          </div>
+
+          <div class="col col-33">
+            <label for="">N Infantes</label>
+            <input ng-class="{'has-error' : myForm.infants.$invalid && (validated)}" value="0" name="infants" ng-model="tour_reservation.infants" class="input-bg-lg" type="number" required>
+            <p ng-show="(validated) && myForm.infants.$error.required" class="help-block">No puede estar vacío.</p>
+          </div>
+        </div>
+
+        <div class="col col-100">
+          <label for="">Telefono</label>
+          <input ng-class="{'has-error' : myForm.phone_number.$invalid && (validated)}" name="phone_number" ng-model="tour_reservation.phone_number" class="input-bg-lg" type="text" name="name" value="" required>
+          <p ng-show="(validated) && myForm.phone_number.$error.required" class="help-block">Ingrese un número de teléfono.</p>
+        </div>
+      </div>
+
+      <h4 ng-show="business.id == 1">Datos de Pago</h4>
+
+      <div class="row" ng-show="business.id == 1">
+        <div class="col col-25 text-center">
+          <div class="">
+            <label for="">Pago en Efectivo</label>
+          </div>
+          <div class="block-center">
+            <input name="cash" ng-model="tour_reservation.cash" class="input-bg-lg" type="checkbox" name="name" value="">
+          </div>
+        </div>
+        <div class="col col-25 text-center">
+          <div class="">
+            <label for="">Pago con Tarjeta</label>
+          </div>
+          <div class="block-center">
+            <input name="credit_card" ng-model="tour_reservation.credit_card" class="input-bg-lg" type="checkbox" name="name" value="">
+          </div>
+        </div>
+
+        <div class="col col-50">
+          <label for="">Total de la Venta</label>
+          <input ng-model="total" class="input-bg-lg" type="text" name="name" value="">
+        </div>
+      </div>
+
+      <div class="row" ng-show="business.id == 1">
+        <div class="col col-20">
+          <label for="">Deposito</label>
+          <input ng-class="{'has-error' : myForm.deposit.$invalid && (validated)}" name="deposit" ng-model="tour_reservation.deposit" class="input-bg-lg" type="text" name="name" value="" required>
+          <p ng-show="(validated) && myForm.deposit.$error.required" class="help-block">Elija un monto de deposito.</p>
+        </div>
+
+        <div class="col col-20 text-center">
+          <div class="">
+            <label for="MXN">MXN</label>
+          </div>
+          <div class="">
+            <input id="MXN" value="MXN" name="MXN" ng-class="{'has-error' : myForm.MXN.$invalid && (validated)}" type="radio" ng-model="tour_reservation.currency" required>
+          </div>
+        </div>
+        <div class="col col-20 text-center">
+          <div class="">
+            <label for="USD">USD</label>
+          </div>
+          <div class="">
+            <input id="USD" value="USD" name="USD" ng-class="{'has-error' : myForm.USD.$invalid && (validated)}" type="radio" ng-model="tour_reservation.currency" required>
+          </div>
+        </div>
+
+        <div class="col col-40">
+          <label for="">Saldo Restante</label>
+          <input ng-model="pay" class="input-bg-lg" type="text" name="name" value="">
+        </div>
+      </div>
+
+      <div class="" ng-show="business.id == 1">
+        <p>Tipo de Cambio: {{product.exchange_rate}}</p>
+        <p class="math-link pull-right" ng-click="calculate(package.price_in_cents,package.price_in_cents_kids,tour_reservation.adults,tour_reservation.kids,tour_reservation.infants,tour_reservation.deposit,tour_reservation.currency,product.exchange_rate)">
+          Calcular monto ></p>
+      </div>
+
+      <div class="col col-100" ng-show="business.id == 1">
+        <label for="">Observaciones</label>
+        <textarea class="input-bg-lg" ng-model="tour_reservation.observations"></textarea>
+      </div>
+    </div>
+
+    <div class="big-green-btn" ng-click="sendData(myForm.$valid, package, product, user)">
+      <div class="reservation-footer-btn">
+        <h4 class="footer-text-center">RESERVAR TOUR</h4>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

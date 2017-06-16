@@ -1,1 +1,427 @@
 /* Empty. Add your own CSS if you like */
+cj-product {
+  width: 200px;
+  height: 250px;
+  display: block;
+  float: left;
+  margin: 15px 15px 0 0;
+  text-align: center;
+}
+
+cj-product > img {
+  border-radius: 10px;
+}
+
+ion-footer-bar {
+  height: 150px;
+}
+
+.product-detail {
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+}
+
+.product-detail .col-50 {
+  text-align: center;
+}
+
+.product-detail .col-50 img {
+  border-radius: 10px;
+}
+
+.product-detail .col-50 table {
+  margin: 25px auto;
+}
+
+.product-detail .counter, .total {
+  font-size: 40px;
+  vertical-align: middle;
+  padding: 10px;
+  width: 200px;
+  text-align: right;
+}
+
+.product-detail .icon {
+  font-size: 40px;
+}
+
+.header .col-data {
+  background-color:lightgrey;
+}
+
+.col-data {
+  border: solid 1px grey;
+  border-bottom-style: none;
+  border-right-style: none;
+}
+
+.col-image {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.col-data:last-child {
+  border-right: solid 1px grey;
+}
+
+.row:last-child .col-data {
+  border-bottom: solid 1px grey;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.input-bg-lg {
+  width: 100%;
+}
+
+.date-pick {
+  display: block;
+}
+
+.date-pick input{
+  margin: 0 auto;
+}
+
+.bg-grey {
+  background-color: rgb(241, 239, 239);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Tour list */
+
+.tour-box {
+  width: 100%;
+  min-height: 250px;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+.tour-image {
+  max-width: 100%;
+  min-width: 100%;
+  height: auto;
+  margin-bottom: -5px;
+}
+
+.tour-image-left {
+  display: inline-block;
+  float: left;
+  width: 250px;
+  height: 250px;
+  padding: 25px 10px 25px 10px;
+}
+
+.tour-reservation-button {
+  display: block;
+  position: absolute;
+  left: 90%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.tour-description-box {
+  min-height: 250px;
+  background-color: rgb(249, 246, 246);
+}
+
+.tour-description-info {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.tour-description-info p{
+  font-size: 110%;
+}
+
+.tour-description {
+  color: rgb(134, 134, 134);
+}
+
+.tour-description span {
+  font-weight: bold;
+}
+
+
+.image-box {
+  /*border: 2px solid rgb(171, 171, 171);*/
+}
+
+.title {
+  margin-left: 10px;
+}
+
+
+.tour-details {
+  padding-top: 15px;
+  padding-bottom: 15px
+}
+
+.tour-detail {
+  font-weight: bold;
+}
+
+.reservation-footer {
+  display: block;
+  margin: 0 auto;
+}
+
+.reservation-footer h4 {
+  text-align: center;
+  color: white;
+}
+
+.reservation-footer-btn {
+  padding-top: 2px;
+  height: 40px;
+  width: 100%;
+  background-color: rgb(92, 159, 49);
+  display: block;
+  margin: 0 auto;
+}
+
+.reservation-footer-btn h4 {
+  text-align: center;
+  color: white;
+}
+
+.top-header-reservation {
+  height: 115px;
+  width: 100%;
+  background-color: rgb(92, 159, 49);
+}
+
+.big-green-btn {
+  padding-top: 10px;
+}
+
+.bar-green {
+  width: 100%;
+  background-color: rgb(92, 159, 49);
+}
+
+.top-header-text {
+  padding-top: 20px;
+  display: inline-block;
+}
+
+.text-white {
+  color: white;
+}
+
+.image-holder {
+  margin: 10px;
+  margin-left: 15px;
+  width: 70px;
+  height: 70px;
+  float: left;
+  display: inline-block;
+}
+
+.has-error {
+  background-color: rgba(255, 0, 0, 0.24);
+  border: 2px solid rgb(246, 0, 0);
+}
+
+.pull-right {
+  text-align: right;
+}
+
+.block-right {
+  display: block;
+  float: right;
+}
+
+.math-link {
+  color: rgb(71, 172, 230);
+}
+
+.radio-block {
+  display: inline-block;
+}
+
+.padding-top {
+  display: block;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.re-size {
+  width: 100%;
+  display: block;
+}
+
+.block-block {
+  text-align: center;
+  vertical-align: middle; /* center checkbox vertically */
+}
+
+.block-center {
+  display: block;
+  padding-left: 70px;
+}
+
+
+/* Select styles test */
+
+.ion-input-select,
+select {
+  -webkit-appearance:none;
+  background-repeat: no-repeat;
+  background-color: rgba(0,0,0,0);
+  border:thin solid #dddddd;
+  font-weight:300;
+  display:inline;
+  vertical-align:middle;
+  color:#333;
+  padding: auto 0;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+.ion-input-select {
+  width:200px;
+  font-size:1rem;
+  background-image: url(http://i.imgur.com/nA9xx1X.png);
+  text-indent:20px;
+  padding:4px 0;
+}
+
+option {
+  background:#444;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+:focus {
+  outline:none;
+}
+
+/* Reservation styles */
+
+.reservation-container {
+  background-color: rgb(251, 251, 251);
+  border-bottom: 2px solid rgb(184, 186, 186);
+}
+
+.reservation-details {
+  padding-top: 10px;
+  padding-left: 10px;
+  line-height: 23px;
+  padding-bottom: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.reservation-box {
+  padding: 15px 0 0 15px;
+}
+
+.print-button {
+  border-radius: 4%;
+  border-color:  rgb(92, 159, 49);
+  width: 200px;
+  height: 30px;
+  color: white;
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgb(92, 159, 49);
+}
+
+.empty-area {
+  padding-top: 10px;
+}
+
+/* images */
+
+.image-list-thumb {
+    padding: 2px 2px 2px 2px;
+    height: 150px;
+}
+
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.transparent {
+  background: rgba(0,0,0,0.7);
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+}
+
+.image {
+    width: 100%;
+    height: 600px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center, center;
+}
+
+.image-card {
+  display: block;
+  width: 100%;
+}
+
+/* cart */
+.trash-icon-container {
+  margin-top: 15px;
+  display: inline-block;
+  float: right;
+  background-color: rgb(217, 0, 0);
+  border-radius: 3px;
+}
+
+.edit-icon-container {
+  margin-top: 15px;
+  display: inline-block;
+  float: right;
+  margin-right: 15px;
+  background-color: rgb(0, 155, 232);
+  border-radius: 3px;
+}
+
+.icon-white-25 {
+  font-size: 25px;
+  color: white;
+}
+
+.pending {
+  font-weight: bold;
+  color: rgb(71, 198, 221);
+}
+
+.completed {
+  font-weight: bold;
+  color: rgb(21, 184, 1);
+}
