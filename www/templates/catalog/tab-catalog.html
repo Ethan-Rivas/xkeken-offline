@@ -1,6 +1,13 @@
-<ion-view view-title="Catalogo">
-  <ion-content class="padding" ng-init="getTours()">
-    <div class="tour-box" ng-repeat="tour in tours | orderBy:'id'">
+<ion-view view-title="Catálogo">
+  <!--<ion-nav-bar class="bar-stable nav-title-slide-ios7">
+    <<ion-nav-buttons side="right">
+        <button class="button button-clear button-positive" ng-click="refresh()">
+            Recargar
+        </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>-->
+  <ion-content class="padding" ng-init="getTours();">
+    <div class="tour-box" ng-repeat="tour in tours">
       <div ng-click="openProduct(tour)">
         <div>
           <img class="tour-image-left" ng-src="{{tour.pictures[0].image_url}}">

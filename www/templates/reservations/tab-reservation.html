@@ -1,8 +1,5 @@
 <ion-view view-title="Reservaciones">
   <ion-content class="has-header" ng-init="getReservations(); getPendingReservations()">
-    <button type="button" name="button" ng-click="sendReservations(pending)">Completar Reservaciones</button>
-    <button type="button" name="button" ng-click="clearPendings(pending)">Borrar Reservaciones</button>
-
     <div class="" ng-repeat="reservation in pending | orderBy:'-id'">
       <div ng-click="openReservation(reservation)">
         <div class="reservation-container">
@@ -12,7 +9,10 @@
             </div>
             <span class="bold">Actividad:</span> <span ng-bind="reservation.tour_reservation.activity"></span></br>
             <span class="bold">Promotor:</span> <span ng-bind="reservation.tour_reservation.promoter"></span></br>
-            <span class="bold"># de Personas:</span> <span>{{reservation.tour_reservation.adults + reservation.tour_reservation.kids + reservation.tour_reservation.infants}}</span>
+            <span class="bold"># de Personas:</span> <span>{{reservation.tour_reservation.adults + reservation.tour_reservation.kids + reservation.tour_reservation.infants}}</span></br>
+            <button type="button" name="button" ng-click="sendReservation(reservation, $index)" ng-if="isActive == true">
+              Procesar <span class="ion-paper-airplane"></span>
+            </button>
           </div>
         </div>
       </div>

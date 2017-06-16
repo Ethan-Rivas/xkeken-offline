@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
 .constant('APIConfig', {
-  PREFIX: 'http://' + '192.168.1.66:3000' + '/api/offline/'
+  PREFIX: 'http://' + 'jade-paci.herokuapp.com' + '/api/offline/'
 })
 
 .service('API', function($http, APIConfig) {

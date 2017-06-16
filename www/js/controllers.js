@@ -1,6 +1,66 @@
 angular.module('starter.controllers', [])
 
-.controller('CatalogCtrl', function($scope, $http, API, $ionicLoading, $ionicModal, localStorageService, $location, $ionicPopup) {
+.factory('ConnectivityMonitor', function($rootScope, $cordovaNetwork){
+  return {
+    isOnline: function(){
+      if(ionic.Platform.isWebView()){
+        return $cordovaNetwork.isOnline();
+      } else {
+        return navigator.onLine;
+      }
+    },
+    isOffline: function(){
+      if(ionic.Platform.isWebView()){
+        return !$cordovaNetwork.isOnline();
+      } else {
+        return !navigator.onLine;
+      }
+    },
+    startWatching: function(){
+        if(ionic.Platform.isWebView()){
+
+          $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+            console.log("went online");
+          });
+
+          $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+            console.log("went offline");
+          });
+
+        }
+        else {
+
+          window.addEventListener("online", function(e) {
+            console.log("went online");
+          }, false);
+
+          window.addEventListener("offline", function(e) {
+            console.log("went offline");
+          }, false);
+        }
+    }
+  }
+})
+
+
+.controller('CatalogCtrl', function($scope, $http, API, $ionicLoading, $ionicModal, localStorageService, $location, $ionicPopup, $window) {
+  $scope.$on('$ionicView.enter', function(e) {
+    console.log(e);
+  });
+
+  /****** Testing Refresh all localStorages #1
+  $scope.refresh = function() {
+    alert('Refresacandole la vagina a tu gfa');
+    localStorageService.set('businesses', []);
+    localStorageService.set('tours', []);
+    toursLoad();
+
+    localStorageService.set('reservations', []);
+    localStorageService.set('sales', []);
+
+    $window.location.reload(true);
+  }; ********/
+
   /******* Loading spinner *******/
   $scope.show = function() {
     $ionicLoading.show({
@@ -8,20 +68,20 @@ angular.module('starter.controllers', [])
     });
   };
 
-  /******* Dash Catalog *******/
-  $scope.getTours = function() {
-    $scope.show($ionicLoading);
+  API.get('users').then(function(response) {
+    $scope.getUsers = response.data;
+    localStorageService.set('users', $scope.getUsers);
+  });
 
+  /******* Dash Catalog *******/
+  $scope.getTours = function () {
     API.get('tours').then(function(response) {
-      $scope.tours = response.data;
-    }, function errorCallBack(response) {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Loading failed!',
-        template: 'Please check your connection!'
-      });
-    }).finally(function() {
-      $ionicLoading.hide();
+      $scope.getTours = response.data;
+
+      localStorageService.set('tours', $scope.getTours);
     });
+
+    $scope.tours = localStorageService.get('tours');
   };
 
   // tab -> catalog (Open Tour/Product)
@@ -88,8 +148,13 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ReservationCtrl', function($scope, API, localStorageService, $stateParams, $location) {
-  API.get('tours/' + $stateParams.tourId).then(function(response) {
-    $scope.product = response.data;
+  $scope.getLocal = localStorageService.get('tours');
+
+  angular.forEach($scope.getLocal, function(tours) {
+    if(tours.id == $stateParams.tourId){
+      $scope.product = tours;
+      console.log(JSON.stringify($scope.product) + ' ' + 'OK');
+    }
   });
 
   function formatSoldProducts(adults, kids, adults_price, kids_price, product_id) {
@@ -128,9 +193,7 @@ angular.module('starter.controllers', [])
     quantity: 0
   };
 
-  API.get('business').then(function(response) {
-    $scope.businesses = response.data;
-  });
+  $scope.users = localStorageService.get('users');
 
   $scope.kids_price = 0;
   $scope.adults_price = 0;
@@ -138,16 +201,19 @@ angular.module('starter.controllers', [])
 
   $scope.reservations = [];
 
-  $scope.sendData = function(valid, pack, product, business) {
+  $scope.reservationTest = [];
+
+  $scope.sendData = function(valid, pack, product, user) {
     $scope.kids_price = pack.price_in_cents_kids;
     $scope.adults_price = pack.price_in_cents;
     $scope.product_id = pack.id;
     $scope.product_name = pack.name;
-    $scope.business = business;
+    $scope.user = user;
 
     var reservationAttrs = {
       "sale": {
-        "business_id": $scope.business.id,
+        "user_id": $scope.user.id,
+        "business_id": $scope.product.business_id,
         "sold_products_attributes": formatSoldProducts($scope.tour_reservation.adults, $scope.tour_reservation.kids, $scope.adults_price, $scope.kids_price, $scope.product_id)
       },
       "tour_reservation": {
@@ -156,7 +222,7 @@ angular.module('starter.controllers', [])
         "hotel": $scope.tour_reservation.hotel,
         "room": $scope.tour_reservation.room,
         "deposit": $scope.tour_reservation.deposit,
-        "promoter": $scope.business.name,
+        "promoter": $scope.user.email,
         "date": $scope.tour_reservation.date,
         "hour": $scope.tour_reservation.hour,
         "email": $scope.tour_reservation.email,
@@ -169,6 +235,8 @@ angular.module('starter.controllers', [])
         "tour_id": product.id
       }
     };
+
+    $scope.reservationTest.push(reservationAttrs);
 
     $scope.validated = true;
 
@@ -194,36 +262,60 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ReservationsCtrl', function($scope, API, localStorageService, $window, $ionicModal) {
+.controller('ReservationsCtrl', function($scope, API, localStorageService, $location, $window, $ionicModal, $cordovaNetwork, ConnectivityMonitor) {
   $scope.$on('$ionicView.enter', function(e) {
     console.log(e);
   });
 
   $scope.getReservations = function () {
     API.get('sales').then(function(response) {
-      $scope.completedReservations = response.data;
+      $scope.getCompletedReservations = response.data;
+      localStorageService.set('sales', $scope.getCompletedReservations);
     });
+
+    $scope.completedReservations = localStorageService.get('sales');
   };
 
   $scope.getPendingReservations = function() {
     $scope.pending = localStorageService.get('pendingReservations');
   };
 
-  $scope.sendReservations = function(pendings) {
-    console.log(JSON.stringify(pendings));
+  if(ConnectivityMonitor.isOnline()){
+     //do something
+     $scope.isActive = true;
+  }else{
+    //do something else
+    $scope.isActive = false;
+  }
 
-    for (var i = 0; i < pendings.length; i++) {
-      console.log(pendings[i]);
-      API.post('tours/' + pendings[i].tour.tour_id + '/reservations.json', pendings[i]).then(function(response) {
-        console.log(response);
-      });
+  $scope.sendReservation = function(reservation, index) {
+    if(ConnectivityMonitor.isOnline()){
+       //do something
+       $scope.isActive = true;
+
+       API.post('tours/' + reservation.tour.tour_id + '/reservations', reservation).then(function(response) {
+         $scope.pending.splice(index, 1);
+         localStorageService.set('pendingReservations', $scope.pending);
+
+         alert('Reservación Completada!');
+         console.log('response: OK');
+
+         $scope.getReservations();
+       },function errorCallBack(response) {
+         $scope.pending.splice(index, 1);
+         localStorageService.set('pendingReservations', $scope.pending);
+
+         alert('Reservación Completada!');
+         console.log('Running on errorCallBack ' + index);
+
+         $scope.getReservations();
+       });
+    }else{
+      //do something else
+      alert('ERROR: No hay conexión a internet!');
     }
 
-    // Clear cart
-    alert('Reservaciones Completadas!');
-    localStorageService.set('pendingReservations', []);
-
-    $window.location.reload(true);
+    $location.path('/tab/catalog');
   };
 
   $scope.clearPendings = function(pendingReservations) {
@@ -252,6 +344,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('CartCtrl', function($scope, localStorageService, $location) {
+  $scope.$on('$ionicView.enter', function(e) {
+    console.log(e);
+  });
+
   /****** Shopping Cart ******/
   $scope.getReservations = function() {
     $scope.cart_reservation = localStorageService.get('reservations');
@@ -281,17 +377,16 @@ angular.module('starter.controllers', [])
   $scope.pendingReservations = [];
 
   $scope.createAsPending = function(cart_reservation) {
-    if(localStorageService.get('pendingReservations').length >= 1) {
-      for(var i = 0; i < localStorageService.get('pendingReservations').length; i++) {
-        $scope.pendingReservations.push(localStorageService.get('pendingReservations')[i]);
-      }
-    }
+    $scope.pendingReservations = localStorageService.get('pendingReservations');
+    $scope.getLocal = localStorageService.set('pendingReservations', []);
 
     for(var i = 0; i < cart_reservation.length; i++) {
       $scope.pendingReservations.push(cart_reservation[i]);
     }
 
     localStorageService.set('pendingReservations', $scope.pendingReservations);
+
+    console.log(JSON.stringify(localStorageService.get('pendingReservations')));
 
     // Clear cart
     alert('Reservaciones creadas con estado: PENDIENTE!');
